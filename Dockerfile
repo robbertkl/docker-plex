@@ -12,8 +12,10 @@ RUN DOWNLOAD_URL=`curl -sSL "https://plex.tv/downloads" | grep -o '[^"'"'"']*amd
 # Configure services
 COPY etc /etc
 
-# Persistent storage
-RUN mkdir -p /config/Plex\ Media\ Server
+# Setup logging and persistent storage
+RUN mkdir -p "/config/Plex Media Server/Logs" \
+    && touch "/config/Plex Media Server/Logs/Plex Media Server.log" \
+    && echo "/config/Plex Media Server/Logs/Plex Media Server.log" >> /etc/services.d/logs/stdout
 COPY [ "Preferences.xml", "/config/Plex Media Server/" ]
 VOLUME /config
 
