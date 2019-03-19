@@ -2,7 +2,7 @@ FROM robbertkl/base-s6
 MAINTAINER Robbert Klarenbeek <robbertkl@renbeek.nl>
 
 # Install latest plexmediaserver from plex.tv
-RUN DOWNLOAD_URL=`curl -sSL "https://plex.tv/api/downloads/1.json" | python -c 'import sys,json; data=json.loads(sys.stdin.read()); print [release["url"] for release in data["computer"]["Linux"]["releases"] if "Ubuntu 64" in release["label"]][0];'` \
+RUN DOWNLOAD_URL=`curl -sSL "https://plex.tv/api/downloads/1.json" | python -c 'import sys,json; data=json.loads(sys.stdin.read()); print [release["url"] for release in data["computer"]["Linux"]["releases"] if "64-bit" in release["label"]][0];'` \
     && curl -sSL "${DOWNLOAD_URL}" -o plexmediaserver.deb \
     && touch /bin/start \
     && chmod +x /bin/start \
